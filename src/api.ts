@@ -11,4 +11,3 @@ export function getMovie(query: string): Promise<MovieData | ResponseError> {
       Error: 'unexpected error',
     }));
 }
-
