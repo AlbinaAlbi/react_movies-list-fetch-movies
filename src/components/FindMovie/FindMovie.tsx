@@ -35,16 +35,14 @@ export const FindMovie: React.FC<FindMovieProps> = ({ addMovie, movies }) => {
         if ('Error' in response) {
           setError(true);
         } else if (!movie || movie.imdbId !== response.imdbID) {
-          const newImdbUrl =
-            response.imdbID === 'N/A'
-              ? 'https://via.placeholder.com/360x270.png?text=no%20preview'
-              : `https://www.imdb.com/title/${response.imdbID}`;
-
           setMovie({
             title: response.Title,
             description: response.Plot,
-            imgUrl: response.Poster,
-            imdbUrl: newImdbUrl,
+            imgUrl:
+              response.Poster && response.Poster !== 'N/A'
+                ? response.Poster
+                : 'https://via.placeholder.com/360x270.png?text=no%20preview',
+            imdbUrl: `https://www.imdb.com/title/${response.imdbID}`,
             imdbId: response.imdbID,
           });
         }
@@ -121,11 +119,12 @@ export const FindMovie: React.FC<FindMovieProps> = ({ addMovie, movies }) => {
           )}
         </div>
       </form>
-
-      <div className="container" data-cy="previewContainer">
-        <h2 className="title">Preview</h2>
-        {movie && <MovieCard movie={movie} />}
-      </div>
+      {movie && (
+        <div className="container" data-cy="previewContainer">
+          <h2 className="title">Preview</h2>
+          <MovieCard movie={movie} />
+        </div>
+      )}
     </>
   );
 };
