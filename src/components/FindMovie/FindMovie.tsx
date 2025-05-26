@@ -35,11 +35,16 @@ export const FindMovie: React.FC<FindMovieProps> = ({ addMovie, movies }) => {
         if ('Error' in response) {
           setError(true);
         } else if (!movie || movie.imdbId !== response.imdbID) {
+          const newImdbUrl =
+            response.imdbID === 'N/A'
+              ? 'https://via.placeholder.com/360x270.png?text=no%20preview'
+              : `https://www.imdb.com/title/${response.imdbID}`;
+
           setMovie({
             title: response.Title,
             description: response.Plot,
             imgUrl: response.Poster,
-            imdbUrl: `https://www.imdb.com/title/${response.imdbID}`,
+            imdbUrl: newImdbUrl,
             imdbId: response.imdbID,
           });
         }
