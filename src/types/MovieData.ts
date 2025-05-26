@@ -4,3 +4,4 @@ export interface MovieData {
   Plot: string;
   imdbID: string;
 }
+ 
