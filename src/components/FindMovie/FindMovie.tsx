@@ -23,12 +23,11 @@ export const FindMovie: React.FC<FindMovieProps> = ({ addMovie, movies }) => {
   const handleFindMovie = async (event: React.FormEvent) => {
     event.preventDefault();
     setVisibleLoader(true);
+    setError(false);
 
     if (input.trim() === '') {
       setError(true);
     }
-
-    setError(false);
 
     await getMovie(input)
       .then(response => {
@@ -53,8 +52,8 @@ export const FindMovie: React.FC<FindMovieProps> = ({ addMovie, movies }) => {
   const handleAddToList = () => {
     const result = movies.every(mov => mov.imdbId !== movie?.imdbId);
 
-    if (result) {
-      addMovie(movie!);
+    if (result && movie !== null) {
+      addMovie(movie);
       setMovie(null);
       setInput('');
     } else {
