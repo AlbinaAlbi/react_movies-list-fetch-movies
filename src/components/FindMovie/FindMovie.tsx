@@ -27,6 +27,8 @@ export const FindMovie: React.FC<FindMovieProps> = ({ addMovie, movies }) => {
 
     if (input.trim() === '') {
       setError(true);
+      
+      return;
     }
 
     await getMovie(input)
